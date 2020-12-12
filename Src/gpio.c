@@ -43,17 +43,17 @@ void MX_GPIO_Init(void)
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
 
   /**/
-  LL_GPIO_ResetOutputPin(GPIOA, Segment_B_Pin|Segment_A_Pin|Digit_3_Pin|Segment_F_Pin 
-                          |Digit_1_Pin|Digit_Time_Pin|Segment_C_Pin|Segment_E_Pin 
-                          |Digit_2_Pin);
+  LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_0|LL_GPIO_PIN_1|LL_GPIO_PIN_2|LL_GPIO_PIN_3 
+                          |LL_GPIO_PIN_4|LL_GPIO_PIN_7|LL_GPIO_PIN_8|LL_GPIO_PIN_11 
+                          |LL_GPIO_PIN_12);
 
   /**/
-  LL_GPIO_ResetOutputPin(GPIOB, Digit_0_Pin|Segment_DP_Pin|Segment_G_Pin|Segment_D_Pin);
+  LL_GPIO_ResetOutputPin(GPIOB, LL_GPIO_PIN_0|LL_GPIO_PIN_1|LL_GPIO_PIN_4|LL_GPIO_PIN_5);
 
   /**/
-  GPIO_InitStruct.Pin = Segment_B_Pin|Segment_A_Pin|Digit_3_Pin|Segment_F_Pin 
-                          |Digit_1_Pin|Digit_Time_Pin|Segment_C_Pin|Segment_E_Pin 
-                          |Digit_2_Pin;
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_0|LL_GPIO_PIN_1|LL_GPIO_PIN_2|LL_GPIO_PIN_3 
+                          |LL_GPIO_PIN_4|LL_GPIO_PIN_7|LL_GPIO_PIN_8|LL_GPIO_PIN_11 
+                          |LL_GPIO_PIN_12;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
@@ -61,7 +61,7 @@ void MX_GPIO_Init(void)
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /**/
-  GPIO_InitStruct.Pin = Digit_0_Pin|Segment_DP_Pin|Segment_G_Pin|Segment_D_Pin;
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_0|LL_GPIO_PIN_1|LL_GPIO_PIN_4|LL_GPIO_PIN_5;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;

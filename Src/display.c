@@ -6,7 +6,7 @@
  */
 
 #include "display.h"
-
+#include "stm32f3xx_it.h"
 
 uint64_t disp_time = 0, disp_time_saved = 0;
 extern char string_to_display[];
@@ -532,7 +532,7 @@ void displayChar(char* message)
 			LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_5);*/
 			break;
 		case 0:
-			LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_5);
+			LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_0);
 			/*LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_2);
 			LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_6);
 			LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_4);*/
@@ -706,14 +706,6 @@ void decode(char character)
 
 
 
-//Update displayed data and keep display ON
-void TIM2_IRQHandler(void)
-{
-	if(LL_TIM_IsActiveFlag_UPDATE(TIM3))
-	{
-		displayChar(string_to_display);
-	}
 
-	LL_TIM_ClearFlag_UPDATE(TIM3);
-}
+
 

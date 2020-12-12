@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "display.h"
 #include "stm32f3xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -28,6 +29,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
 extern uint64_t disp_time;
+extern char string_to_display[];
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/
@@ -196,6 +198,17 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f3xx.s).                    */
 /******************************************************************************/
+//Update displayed data and keep display ON
+void TIM2_IRQHandler(void)
+{
+	if(LL_TIM_IsActiveFlag_UPDATE(TIM2))
+	{
+		displayChar(string_to_display);
+	}
+
+	LL_TIM_ClearFlag_UPDATE(TIM2);
+}
+
 
 /**
   * @brief This function handles EXTI line 3 interrupt.

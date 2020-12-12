@@ -33,14 +33,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-	uint8_t temp = 0;
-	float mag[3], acc[3];
+uint8_t temp = 0;
+float mag[3], acc[3];
 
-	extern uint64_t disp_time;
-	//char string[]= "MARTINHORVATH92601";
-	char string[]= "KRISTINAOKIENKOVA92618";
-	char string_to_display[5]= "";
-	uint64_t saved_time;
+extern uint64_t disp_time;
+//char string[]= "MARTINHORVATH92601";
+char string[]= "KRISTINAOKIENKOVA92618";
+char string_to_display[5]= "";
+uint64_t saved_time;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -107,7 +107,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_TIM2_Init();
+
   /* USER CODE BEGIN 2 */
 
   setSegments();
@@ -116,6 +116,7 @@ int main(void)
   resetDigits();
   resetSegments();
   lsm6ds0_init();
+  MX_TIM2_Init();
   /* USER CODE END 2 */
   int shift=0;
   int index=0;
@@ -154,6 +155,7 @@ int main(void)
 		  {
 			  shift=0;
 		  }
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
