@@ -30,7 +30,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+	uint8_t temp = 0;
+	float mag[3], acc[3];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -46,7 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+lsm6ds0_init();
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -98,7 +99,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+  lsm6ds0_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -106,7 +107,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  lsm6ds0_get_acc(acc, (acc+1), (acc+2));
+	  LL_mDelay(50);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
