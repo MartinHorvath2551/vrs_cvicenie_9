@@ -21,7 +21,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "tim.h"
 #include "gpio.h"
+#include "display.h"
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -32,6 +35,12 @@
 /* USER CODE BEGIN PTD */
 	uint8_t temp = 0;
 	float mag[3], acc[3];
+
+	extern uint64_t disp_time;
+	//char string[]= "MARTINHORVATH92601";
+	char string[]= "KRISTINAOKIENKOVA92618";
+	char string_to_display[5]= "";
+	uint64_t saved_time;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -98,17 +107,53 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
+  setSegments();
+  setDigits();
+  LL_mDelay(2000);
+  resetDigits();
+  resetSegments();
   lsm6ds0_init();
   /* USER CODE END 2 */
-
+  int shift=0;
+  int index=0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	  lsm6ds0_get_acc(acc, (acc+1), (acc+2));
-	  LL_mDelay(50);
+	  /*
+	  	  lsm6ds0_get_acc(acc, (acc+1), (acc+2));
+	  	  LL_mDelay(50);
+	  	  */
+
+
+
+		  LL_mDelay(500);
+
+		  index=shift;
+		  for(int i = 0; i < 4; i++){
+
+			  if(index+i>=(strlen(string))){
+				  index=0-i;
+
+			  }
+
+
+			  string_to_display[i]=string[index+i];
+
+
+		  }
+
+		  if(shift<(strlen(string))){
+			  shift++;
+		  }
+		  else
+		  {
+			  shift=0;
+		  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -148,6 +193,7 @@ void SystemClock_Config(void)
   LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
   LL_SetSystemCoreClock(8000000);
   LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_HSI);
+  LL_SYSTICK_EnableIT();
 }
 
 /* USER CODE BEGIN 4 */
