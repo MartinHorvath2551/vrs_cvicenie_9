@@ -72,6 +72,35 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Segment_B_Pin LL_GPIO_PIN_0
+#define Segment_B_GPIO_Port GPIOA
+#define Segment_A_Pin LL_GPIO_PIN_1
+#define Segment_A_GPIO_Port GPIOA
+#define Digit_3_Pin LL_GPIO_PIN_2
+#define Digit_3_GPIO_Port GPIOA
+#define Segment_F_Pin LL_GPIO_PIN_3
+#define Segment_F_GPIO_Port GPIOA
+#define Digit_1_Pin LL_GPIO_PIN_4
+#define Digit_1_GPIO_Port GPIOA
+#define Digit_Time_Pin LL_GPIO_PIN_7
+#define Digit_Time_GPIO_Port GPIOA
+#define Digit_0_Pin LL_GPIO_PIN_0
+#define Digit_0_GPIO_Port GPIOB
+#define Segment_DP_Pin LL_GPIO_PIN_1
+#define Segment_DP_GPIO_Port GPIOB
+#define Segment_C_Pin LL_GPIO_PIN_8
+#define Segment_C_GPIO_Port GPIOA
+#define Segment_E_Pin LL_GPIO_PIN_11
+#define Segment_E_GPIO_Port GPIOA
+#define Digit_2_Pin LL_GPIO_PIN_12
+#define Digit_2_GPIO_Port GPIOA
+#define Button_Pin LL_GPIO_PIN_3
+#define Button_GPIO_Port GPIOB
+#define Button_EXTI_IRQn EXTI3_IRQn
+#define Segment_G_Pin LL_GPIO_PIN_4
+#define Segment_G_GPIO_Port GPIOB
+#define Segment_D_Pin LL_GPIO_PIN_5
+#define Segment_D_GPIO_Port GPIOB
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */
