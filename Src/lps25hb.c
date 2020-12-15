@@ -54,7 +54,7 @@ uint8_t lps25hb_init(void)
 	return status;
 }
 
-float lps25hb_getPressure(){
+float lps25hb_get_pressure(){
 
 	uint8_t h, xl, l;
 

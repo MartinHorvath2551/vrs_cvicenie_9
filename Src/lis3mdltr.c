@@ -6,6 +6,7 @@
  */
 
 #include <lis3mdltr.h>
+#include "math.h"
 
 #define LIS2_DH_CTRL2_FILTER_SETTINGS		(LIS3MDL_CTRL2_HPM_NORMAL_REF | LIS3MDL_CTRL2_HPCF0)
 
@@ -42,31 +43,7 @@ int8_t lis3mdl_get_temp()
 	return (((int16_t)((temp[1] << 8) | temp[0])) >> 3)  + 25;
 }
 
-void lis3mdl_get_mag(float* x, float* y, float* z)
-{
-	uint8_t data[6];
-	int16_t xx, yy, zz;
 
-	uint8_t temp;
-
-	//get current scale and use it for final calculation
-    temp = lis3mdl_read_byte(LIS3MDL_ADDRESS_CTRL3);
-
-	temp = temp >> 5;
-    temp &= 0x03;			//full scale bits exctracted
-
-	lis3mdl_readArray(data, LIS3MDL_ADDRESS_XL, 6);
-
-	xx = ((uint16_t)data[1]) << 8 | data[0];
-	yy = ((uint16_t)data[3]) << 8 | data[2];
-	zz = ((uint16_t)data[5]) << 8 | data[4];
-
-    const float range_scale = 6842.0f; //range +-4gaus
-
-	*x = (float)(xx/range_scale);
-	*y = (float)(yy/range_scale);
-	*z = (float)(zz/range_scale);
-}
 
 
 uint8_t lis3mdl_init(void)
@@ -105,3 +82,69 @@ uint8_t lis3mdl_init(void)
 
 	return status;
 }
+
+void lis3mdl_get_mag(float* x, float* y)
+{
+
+	uint8_t data[6];
+	int16_t xx, yy;
+
+	uint8_t temp;
+
+	//get current scale and use it for final calculation
+    temp = lis3mdl_read_byte(LIS3MDL_ADDRESS_CTRL3);
+
+	temp = temp >> 5;
+    temp &= 0x03;			//full scale bits exctracted
+
+	lis3mdl_readArray(data, LIS3MDL_ADDRESS_XL, 6);
+
+	xx = ((uint16_t)data[1]) << 8 | data[0];
+	yy = ((uint16_t)data[3]) << 8 | data[2];
+
+    const float range_scale = 6842.0f; //range +-4gaus
+
+	*x = (float)(xx/range_scale);
+	*y = (float)(yy/range_scale);
+
+}
+
+float lis3mdl_get_azimuth()
+{
+	// based on this example https://blog.digilentinc.com/how-to-convert-magnetometer-data-into-compass-heading/
+
+	float azimuth, x, y;
+
+	lis3mdl_get_mag(&x,&y);
+
+	if(x != 0)
+	{
+		azimuth = atan(y/x)*(180/3.14);
+	}
+	else
+	{
+		if(y<0)
+		{
+			azimuth=90;
+		}
+		else
+		{
+			azimuth=0;
+		}
+	}
+
+	if(azimuth > 360)
+	{
+		azimuth = azimuth- 360;
+	}
+
+	if(azimuth < 0)
+	{
+		azimuth = azimuth+ 360;
+	}
+
+	return azimuth;
+
+
+}
+
