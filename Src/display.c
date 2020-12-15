@@ -504,6 +504,20 @@ void set_Z(void) {
 }
 
 
+void set__(void) {
+	//
+
+	LL_GPIO_ResetOutputPin(SEGMENTD_PORT, SEGMENTD_PIN); //D
+
+
+}
+
+
+void set_space(void){
+
+}
+
+
 /**
  * Pre-process number before it is displayed. Extract digits of the number
  */
@@ -698,7 +712,12 @@ void decode(char character)
 	case '0':
 		set_0();
 		break;
-
+	case '_':
+		set__;
+		break;
+	case ' ':
+		set_space;
+		break;
 	}
 
 }

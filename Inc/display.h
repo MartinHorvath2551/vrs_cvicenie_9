@@ -135,5 +135,7 @@ void set_y(void);
 
 void set_Z(void);
 
+void set__(void);
 
+void set_space(void);
 
