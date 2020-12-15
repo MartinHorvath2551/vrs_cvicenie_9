@@ -41,6 +41,11 @@
 uint8_t temp = 0;
 float mag[3], acc[3];
 
+int16_t temperature = 0;
+uint16_t humidity = 0;
+float pressure = 0;
+float azimut = 0;
+
 extern uint64_t disp_time;
 //char string[]= "MARTINHORVATH92601";
 char string[]= "KRISTINAOKIENKOVA92618";
@@ -121,6 +126,13 @@ int main(void)
   resetDigits();
   resetSegments();
   lsm6ds0_init();
+
+  hts221_init();
+  lis3mdl_init();
+  lps25hb_init();
+
+
+
   MX_TIM2_Init();
   /* USER CODE END 2 */
   int shift=0;
@@ -134,6 +146,11 @@ int main(void)
 	  	  lsm6ds0_get_acc(acc, (acc+1), (acc+2));
 	  	  LL_mDelay(50);
 	  	  */
+
+	  	  humidity = hts221_get_humidity();
+	  	  temperature = hts221_get_temperature();
+		  pressure = lps25hb_get_pressure();
+		  azimut = lis3mdl_get_azimuth();
 
 
 
