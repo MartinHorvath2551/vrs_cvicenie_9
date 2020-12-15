@@ -50,8 +50,5 @@ uint8_t hts221_init(void)
 
 	hts221_write_byte(HTS221_CTRL_REG1, HTS221_CTRL_REG1_SETUP);
 
-	if(hts221_read_byte(HTS221_CTRL_REG1)!=HTS221_DEVICE_ON){
-		status = 0;
-		}
 	return status;
 }
