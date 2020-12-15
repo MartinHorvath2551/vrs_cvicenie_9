@@ -56,7 +56,7 @@ uint64_t saved_time;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-lsm6ds0_init();
+//lsm6ds0_init();
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

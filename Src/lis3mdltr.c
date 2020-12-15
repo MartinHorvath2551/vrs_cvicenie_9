@@ -5,31 +5,34 @@
  *      Author: Stancoj
  */
 
-
-#include "lis3mdltr.h"
+#include <lis3mdltr.h>
 
 #define LIS2_DH_CTRL2_FILTER_SETTINGS		(LIS3MDL_CTRL2_HPM_NORMAL_REF | LIS3MDL_CTRL2_HPCF0)
 
 
-static uint8_t sLIS3MDLI2Caddress = LIS3MDL_DEVICE_ADDRESS;
+static uint8_t sLIS3MDLI2Caddress = 0x3d;;
 
-uint64_t lastMovementTick = 0;
 
+
+//-------------------
 uint8_t lis3mdl_read_byte(uint8_t reg_addr)
 {
-	uint8_t data = 0;
-	return *(i2c_master_read(&data, 1, reg_addr, sLIS3MDLI2Caddress, 0));
+uint8_t data = 0;
+return *(i2c_master_read(&data, 1, reg_addr, sLIS3MDLI2Caddress, 0));
 }
-
-void lis3mdl_write_byte(uint8_t reg_addr, uint8_t value)
-{
-	i2c_master_write(value, reg_addr, sLIS3MDLI2Caddress, 0);
-}
-
 void lis3mdl_readArray(uint8_t * data, uint8_t reg, uint8_t length)
 {
-	i2c_master_read(data, length, reg, sLIS3MDLI2Caddress, 1);
+i2c_master_read(data, length, reg, sLIS3MDLI2Caddress, 1);
 }
+void lis3mdl_write_byte(uint8_t reg_addr, uint8_t value){
+i2c_master_write(value, reg_addr, sLIS3MDLI2Caddress, 0);
+}
+
+//------------------
+
+
+
+
 
 int8_t lis3mdl_get_temp()
 {
@@ -83,17 +86,7 @@ uint8_t lis3mdl_init(void)
 	}
 	else			//if the device is not found on one address, try another one
 	{
-		sLIS3MDLI2Caddress = LIS3MDL_DEVICE_ADDRESS_ALTERNATIVE;
-		val = lis3mdl_read_byte(LIS3MDL_WHO_AM_I_ADDRES);
-		if(val == LIS3MDL_WHO_AM_I_VALUE)
-		{
-			status = 1;
-		}
-		else
-		{
-			status = 0;
-			return status;
-		}
+		status = 0;
 	}
 
 	//acc device init
