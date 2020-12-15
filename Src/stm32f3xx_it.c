@@ -30,6 +30,8 @@
 /* USER CODE BEGIN TD */
 extern uint64_t disp_time;
 extern char string_to_display[];
+extern int switch_state;
+
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/
@@ -220,9 +222,13 @@ void EXTI3_IRQHandler(void)
   /* USER CODE END EXTI3_IRQn 0 */
   if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_3) != RESET)
   {
+
+	    switch_state++;
+	    if (switch_state==5) switch_state=1;
+
     LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_3);
     /* USER CODE BEGIN LL_EXTI_LINE_3 */
-    
+
     /* USER CODE END LL_EXTI_LINE_3 */
   }
   /* USER CODE BEGIN EXTI3_IRQn 1 */

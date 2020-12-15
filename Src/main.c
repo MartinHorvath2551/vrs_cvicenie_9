@@ -51,6 +51,7 @@ extern uint64_t disp_time;
 char string[]= "KRISTINAOKIENKOVA92618";
 char string_to_display[5]= "";
 uint64_t saved_time;
+int switch_state=1;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
