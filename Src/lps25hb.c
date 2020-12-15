@@ -53,3 +53,16 @@ uint8_t lps25hb_init(void)
 
 	return status;
 }
+
+float lps25hb_getPressure(){
+
+	uint8_t h, xl, l;
+
+	h = lps25hb_read_byte(0x2A);
+	xl = lps25hb_read_byte(0x28);
+	l = lps25hb_read_byte(0x29);
+
+	float pressure = (h << 16 | l << 8 | xl)/4096;
+
+	return pressure;
+}

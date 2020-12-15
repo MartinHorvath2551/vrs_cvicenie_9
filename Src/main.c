@@ -26,9 +26,14 @@
 #include "display.h"
 #include <string.h>
 
+
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lsm6ds0.h"
+#include "hts221.h"
+#include "lps25hb.h"
+#include "lis3mdltr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
