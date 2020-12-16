@@ -25,7 +25,7 @@
 #include "gpio.h"
 #include "display.h"
 #include <string.h>
-
+#include "math.h"
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -41,10 +41,12 @@
 uint8_t temp = 0;
 float mag[3], acc[3];
 
-int16_t temperature = 0;
-uint16_t humidity = 0;
+float temperature = 0;
+float humidity = 0;
 float pressure = 0;
-float azimut = 0;
+float azimuth = 0;
+float altitude = 0;
+
 
 extern uint64_t disp_time;
 //char string[]= "MARTINHORVATH92601";
@@ -151,7 +153,8 @@ int main(void)
 	  	  humidity = hts221_get_humidity();
 	  	  temperature = hts221_get_temperature();
 		  pressure = lps25hb_get_pressure();
-		  azimut = lis3mdl_get_azimuth();
+		  azimuth = lis3mdl_get_azimuth();
+		  altitude = get_altitude();
 
 
 
@@ -222,6 +225,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
+float get_altitude()
+{
+	//https://keisan.casio.com/exec/system/1224585971
+
+	float pressure_alt = lps25hb_get_pressure();
+	float temperature_alt = hts221_get_temperature();
+	float altitude_alt;
+
+	altitude_alt = ((powf((1013.25/pressure_alt),1/5.257)-1)*(temperature_alt+273.15))/0.0065;
+
+	return altitude_alt;
+}
+
+
+
+
 
 /* USER CODE END 4 */
 

@@ -54,7 +54,7 @@ uint8_t hts221_init(void)
 }
 
 
-int16_t hts221_get_temperature()
+float hts221_get_temperature()
 {
 
 	/*based on example at page 7:
@@ -65,7 +65,7 @@ int16_t hts221_get_temperature()
 	 int16_t T0_degC, T1_degC;
 	 uint8_t buffer[4], tmp;
 	 int32_t tmp32;
-	 int16_t value;
+	 float value;
 
 	/*1. Read from 0x32 & 0x33 registers the value of coefficients T0_degC_x8 and T1_degC_x8*/
 	 hts221_readArray(buffer, 0x32, 2);
@@ -94,13 +94,14 @@ int16_t hts221_get_temperature()
 	/* 6. Compute the Temperature value by linear interpolation*/
 
 	 tmp32 = ((int32_t)(T_out - T0_out)) * ((int32_t)(T1_degC - T0_degC)*10);
-	 value = tmp32 /(T1_out - T0_out) + T0_degC*10;
+	 value = (float)(tmp32 /(T1_out - T0_out) + T0_degC*10)*0.1f;
+
 
 	 return value;
 }
 
 
-uint16_t hts221_get_humidity()
+float hts221_get_humidity()
 {
 
 	/*based on example at page 4:
@@ -112,7 +113,7 @@ uint16_t hts221_get_humidity()
 	int16_t H0_rh, H1_rh;
 	uint8_t buffer[2];
 	int32_t tmp;
-	uint16_t value = 0;
+	float value = 0;
 
 	/* 1. Read H0_rH and H1_rH coefficients*/
 	hts221_readArray(buffer, 0x30, 2);
@@ -140,8 +141,11 @@ uint16_t hts221_get_humidity()
 	/* Saturation condition*/
 	if(value>1000) value = 1000;
 
+	value *= 0.1;
+
 	return value;
 }
+
 
 
 

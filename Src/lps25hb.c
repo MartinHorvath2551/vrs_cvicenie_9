@@ -62,7 +62,7 @@ float lps25hb_get_pressure(){
 	xl = lps25hb_read_byte(0x28);
 	l = lps25hb_read_byte(0x29);
 
-	float pressure = (h << 16 | l << 8 | xl)/4096;
+	float pressure = (float)(h << 16 | l << 8 | xl)/4096.0f;
 
 	return pressure;
 }
