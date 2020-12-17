@@ -224,7 +224,7 @@ void EXTI3_IRQHandler(void)
   {
 
 	    switch_state++;
-	    if (switch_state==5) switch_state=1;
+	    if (switch_state==6) switch_state=1;
 
     LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_3);
     /* USER CODE BEGIN LL_EXTI_LINE_3 */

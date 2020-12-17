@@ -50,11 +50,12 @@ float altitude = 0;
 
 extern uint64_t disp_time;
 //char string[]= "MARTINHORVATH92601";
-char string[]= "   123456789   ";
+char string[]= "123456789";
 char string_to_display[5]= "";
 char empty_string[]=" ";
 uint64_t saved_time;
 int switch_state=1;
+int set_state=1;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -157,6 +158,37 @@ int main(void)
 		  pressure = lps25hb_get_pressure();
 		  azimuth = lis3mdl_get_azimuth();
 		  altitude = get_altitude();
+
+
+		  if(set_state!=switch_state)
+		  {
+			  shift=0;
+			  direction=1;
+			  set_state=switch_state;
+
+		  }
+
+		 /* switch (switch_state)
+		  ​{
+		      case 1:
+		        // statements
+		        break;
+		      case 2:
+				// statements
+				break;
+		      case 3:
+				// statements
+				break;
+		      case 4:
+				// statements
+				break;
+		      case 5:
+				// statements
+				break;
+		  }*/
+
+
+
 
 
 		  index=shift;
