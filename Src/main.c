@@ -50,8 +50,9 @@ float altitude = 0;
 
 extern uint64_t disp_time;
 //char string[]= "MARTINHORVATH92601";
-char string[]= "KRISTINAOKIENKOVA92618";
+char string[]= "   123456789   ";
 char string_to_display[5]= "";
+char empty_string[]=" ";
 uint64_t saved_time;
 int switch_state=1;
 /* USER CODE END PTD */
@@ -140,6 +141,7 @@ int main(void)
   /* USER CODE END 2 */
   int shift=0;
   int index=0;
+  int direction=1;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -157,29 +159,67 @@ int main(void)
 		  altitude = get_altitude();
 
 
+		  index=shift;
 
 		  LL_mDelay(500);
 
-		  index=shift;
-		  for(int i = 0; i < 4; i++){
+		  if(direction==1)
+		  {
 
-			  if(index+i>=(strlen(string))){
-				  index=0-i;
+
+			  for(int i = 0; i < 4; i++){
+
+				 /* if(index+i>=(strlen(string))){
+					  string_to_display[i]=empty_string[0];
+
+				  }
+				  else
+				  {
+					  string_to_display[i]=string[index+i];
+				  }*/
+
+				  string_to_display[i]=string[index+i];
+
+
 
 			  }
 
+			  if(shift<(strlen(string)-4)){
+				  shift++;
+			  }
+			  else
+			  {
 
-			  string_to_display[i]=string[index+i];
-
-
-		  }
-
-		  if(shift<(strlen(string))){
-			  shift++;
+				  direction=0;
+			  }
 		  }
 		  else
 		  {
-			  shift=0;
+
+			  for(int i = 0; i < 4; i++)
+			  {
+
+				  /*if(index+i>=(strlen(string))){
+					  string_to_display[i]=empty_string[0];
+
+				  }
+				  else
+				  {
+					  string_to_display[i]=string[index+i];
+				  }*/
+
+				  string_to_display[i]=string[index+i];
+			  }
+
+			  if(shift!=0){
+				  shift--;
+			  }
+			  else
+			  {
+
+				  direction=1;
+			  }
+
 		  }
 
     /* USER CODE BEGIN 3 */
