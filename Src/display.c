@@ -512,6 +512,15 @@ void set_break_character(void) {
 
 }
 
+void set_dash(void) {
+	//
+
+
+	LL_GPIO_ResetOutputPin(SEGMENTG_PORT, SEGMENTG_PIN); //G
+
+
+}
+
 void set_dot(void){
 	LL_GPIO_ResetOutputPin(SEGMENTDP_PORT, SEGMENTDP_PIN); //G
 
@@ -725,6 +734,9 @@ void decode(char character)
 	case ',':
 	case '.':
 		set_dot();
+		break;
+	case '-':
+		set_dash();
 		break;
 	}
 

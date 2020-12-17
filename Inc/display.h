@@ -141,3 +141,5 @@ void set_space(void);
 
 void set_dot(void);
 
+void set_dash(void);
+
