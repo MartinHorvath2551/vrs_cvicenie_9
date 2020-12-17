@@ -150,6 +150,7 @@ int main(void)
   char altitude_string[10];
   char pressure_string[10];
   char number[10];
+  int fast_refresh=0; // please set this variable to 1 in case you want to fast refresh rate of measured values
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -175,8 +176,8 @@ int main(void)
 
 		  }
 
-
-		  if((shift==0)&&(direction==1))
+		  // this if is used for refreshing measured values only when message is fully printed out this feature was added for better readability
+		  if(((shift==0)&&(direction==1))||(fast_refresh==1))
 		  {
 
 			  if(switch_state==1)
