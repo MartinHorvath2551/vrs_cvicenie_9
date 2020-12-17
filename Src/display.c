@@ -504,7 +504,7 @@ void set_Z(void) {
 }
 
 
-void set__(void) {
+void set_break_character(void) {
 	//
 
 	LL_GPIO_ResetOutputPin(SEGMENTD_PORT, SEGMENTD_PIN); //D
@@ -512,6 +512,10 @@ void set__(void) {
 
 }
 
+void set_dot(void){
+	LL_GPIO_ResetOutputPin(SEGMENTDP_PORT, SEGMENTDP_PIN); //G
+
+}
 
 void set_space(void){
 
@@ -713,10 +717,14 @@ void decode(char character)
 		set_0();
 		break;
 	case '_':
-		set__;
+		set_break_character();
 		break;
 	case ' ':
-		set_space;
+		set_space();
+		break;
+	case ',':
+	case '.':
+		set_dot();
 		break;
 	}
 

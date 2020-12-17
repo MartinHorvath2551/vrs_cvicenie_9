@@ -94,7 +94,7 @@ float hts221_get_temperature()
 	/* 6. Compute the Temperature value by linear interpolation*/
 
 	 tmp32 = ((int32_t)(T_out - T0_out)) * ((int32_t)(T1_degC - T0_degC)*10);
-	 value = (float)(tmp32 /(T1_out - T0_out) + T0_degC*10)*0.1f;
+	 value = (float)(tmp32 /(T1_out - T0_out) + T0_degC*10)*0.10000f;
 
 
 	 return value;

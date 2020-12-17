@@ -26,6 +26,7 @@
 #include "display.h"
 #include <string.h>
 #include "math.h"
+#include <stdlib.h>
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -50,7 +51,7 @@ float altitude = 0;
 
 extern uint64_t disp_time;
 //char string[]= "MARTINHORVATH92601";
-char string[]= "123456789";
+char string[20]= "";
 char string_to_display[5]= "";
 char empty_string[]=" ";
 uint64_t saved_time;
@@ -143,6 +144,12 @@ int main(void)
   int shift=0;
   int index=0;
   int direction=1;
+  char azimuth_string[10];
+  char humidity_string[10];
+  char temperature_string[10];
+  char altitude_string[10];
+  char pressure_string[10];
+  char number[10];
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -153,11 +160,11 @@ int main(void)
 	  	  LL_mDelay(50);
 	  	  */
 
-	  	  humidity = hts221_get_humidity();
-	  	  temperature = hts221_get_temperature();
-		  pressure = lps25hb_get_pressure();
-		  azimuth = lis3mdl_get_azimuth();
-		  altitude = get_altitude();
+	  	  humidity = hts221_get_humidity()*1.00f;
+	  	  temperature = hts221_get_temperature()*1.00f;
+		  pressure = lps25hb_get_pressure()*1.00f;
+		  azimuth = lis3mdl_get_azimuth()*1.00f;
+		  altitude = get_altitude()*1.00f;
 
 
 		  if(set_state!=switch_state)
@@ -168,24 +175,138 @@ int main(void)
 
 		  }
 
-		 /* switch (switch_state)
-		  ​{
-		      case 1:
-		        // statements
-		        break;
-		      case 2:
-				// statements
-				break;
-		      case 3:
-				// statements
-				break;
-		      case 4:
-				// statements
-				break;
-		      case 5:
-				// statements
-				break;
-		  }*/
+
+		  if((shift==0)&&(direction==1))
+		  {
+
+			  if(switch_state==1)
+			  {
+				  memset(string,0,strlen(string));
+				  memset(azimuth_string,0,strlen(azimuth_string));
+
+				  gcvt(azimuth,7, azimuth_string);
+				  int i;
+				  int toggle=0;
+
+				  for (i=0;i<7;i++)
+					{
+					  number[i]=azimuth_string[i];
+					  if(toggle!=0) toggle++;
+					  if(toggle==3) break;
+					  if((azimuth_string[i]=='.')||(azimuth_string[i]==','))
+					  {
+						  toggle=1;
+					  }
+					}
+				  number[i]='\0';
+
+
+				  strcat(string, "MAG_");
+				  strcat(string, number);
+			  }
+			  else if(switch_state==2)
+			  {
+				  memset(string,0,strlen(string));
+				  memset(temperature_string,0,strlen(temperature_string));
+
+				  gcvt(temperature,7, temperature_string);
+				  int i;
+				  int toggle=0;
+
+				  for (i=0;i<7;i++)
+					{
+					  number[i]=temperature_string[i];
+					  if(toggle!=0) toggle++;
+					  if(toggle==3) break;
+					  if((temperature_string[i]=='.')||(temperature_string[i]==','))
+					  {
+						  toggle=1;
+					  }
+					}
+				  number[i]='\0';
+
+
+				  strcat(string, "TEM_");
+				  strcat(string, number);
+
+			  }
+			  else if(switch_state==3)
+			  {
+
+				  memset(string,0,strlen(string));
+				  memset(humidity_string,0,strlen(humidity_string));
+
+				  gcvt(humidity,7, humidity_string);
+
+				  int i;
+				  for (i=0;i<7;i++)
+					{
+					  number[i]=humidity_string[i];
+					  if((humidity_string[i]=='.')||(humidity_string[i]==','))
+					  {
+						  break;
+					  }
+					}
+				  number[i]='\0';
+
+
+				  strcat(string, "HUM_");
+				 				  strcat(string, number);
+			  }
+			  else if(switch_state==4)
+			  {
+
+				  memset(string,0,strlen(string));
+				  memset(pressure_string,0,strlen(pressure_string));
+
+				  gcvt(pressure,7, pressure_string);
+				  int i;
+				  int toggle=0;
+
+				  for (i=0;i<7;i++)
+					{
+					  number[i]=pressure_string[i];
+					  if(toggle!=0) toggle++;
+					  if(toggle==4) break;
+					  if((pressure_string[i]=='.')||(pressure_string[i]==','))
+					  {
+						  toggle=1;
+					  }
+					}
+				  number[i]='\0';
+
+
+				  strcat(string, "BAR_");
+				  strcat(string, number);
+			  }
+			  else if(switch_state==5)
+			  {
+
+				  memset(string,0,strlen(string));
+				  memset(altitude_string,0,strlen(altitude_string));
+
+				  gcvt(altitude,6, altitude_string);
+				  int i;
+				  int toggle=0;
+
+				  for (i=0;i<6;i++)
+					{
+					  number[i]=altitude_string[i];
+					  if(toggle!=0) toggle++;
+					  if(toggle==3) break;
+					  if((altitude_string[i]=='.')||(altitude_string[i]==','))
+					  {
+						  toggle=1;
+					  }
+					}
+				  number[i]='\0';
+
+
+				  strcat(string, "ALT_");
+				  strcat(string, number);
+			  }
+
+		  }
 
 
 
