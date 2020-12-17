@@ -117,30 +117,17 @@ float lis3mdl_get_azimuth()
 
 	lis3mdl_get_mag(&x,&y);
 
-	if(x != 0)
-	{
-		azimuth = atan(y/x)*(180/3.14);
-	}
-	else
-	{
-		if(y<0)
-		{
-			azimuth=90;
-		}
-		else
-		{
-			azimuth=0;
-		}
-	}
+
+	azimuth = (atan2(y,x)*(180.0f/3.14f))+90.0f;
 
 	if(azimuth > 360)
 	{
-		azimuth = azimuth- 360;
+		azimuth = azimuth- 360.0f;
 	}
 
 	if(azimuth < 0)
 	{
-		azimuth = azimuth+ 360;
+		azimuth = azimuth+ 360.0f;
 	}
 
 	return azimuth;
