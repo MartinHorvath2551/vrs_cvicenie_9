@@ -96,6 +96,13 @@ float hts221_get_temperature()
 	 tmp32 = ((int32_t)(T_out - T0_out)) * ((int32_t)(T1_degC - T0_degC)*10);
 	 value = (float)(tmp32 /(T1_out - T0_out) + T0_degC*10)*0.10000f;
 
+	 if(value>100){
+		 value=100.00f;
+	 }
+	 else if(value<-100){
+		 value=-100.00f;
+	 }
+
 
 	 return value;
 }
